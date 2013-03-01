@@ -1,1 +1,9 @@
 /* CSS declarations go here */
+
+.questions_list {
+    direction: rtl;
+}
+
+.quiz {
+    direction: rtl;
+}

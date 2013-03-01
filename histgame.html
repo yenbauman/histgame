@@ -8,9 +8,11 @@
     </div>
 
     <div id="history_games">
-        <h1 dir="rtl" style="color: red">מחשקי היסטוריה</h1>
+        <h1 dir="rtl" style="color: red">משחקי היסטוריה</h1>
         <h3 dir="rtl">רשימת חדרים</h3>
         {{> games_list}}
+        <br><br>
+        <hr/>
         {{> game_quiz}}
         {{> edit_questions}}
     </div>
@@ -20,9 +22,9 @@
 
 
 <template name="games_list">
-    <div class="btn-group pull-right">
+    <div class="btn-group pull-right" data-toggle="buttons-radio">
         {{#each games}}
-        <div id="{{_id}}" class="game_button btn btn-inverse">
+        <div id="{{_id}}" class="game_button btn {{#if finished}}btn-success{{/if}}">
             {{name}}
         </div>
         {{/each}}
@@ -33,9 +35,34 @@
 
 <template name="game_quiz">
     {{#unless editing_questions }}
-    <ul class="questions_list">
-    </ul>
+        {{#if inside_game}}
+        <div class="quiz">
+        <ul class="questions_list">
+            {{#each questions}}
+                {{>ask_question}}
+            {{/each}}
+        </ul>
+        <div class="btn answer-button">
+    סיימתי
+        </div>
+        </div>
+        {{/if}}
     {{/unless}}
+</template>
+
+
+<template name="ask_question">
+    <li>
+        {{question_text}}
+        <br/>
+        <div class="btn-group" data-toggle="buttons-radio">
+            <button type="button" id="{{_id}}_1" class="btn btn-primary question-option">{{option1}}</button><br>
+            <button type="button" id="{{_id}}_2" class="btn btn-primary question-option">{{option2}}</button><br>
+            <button type="button" id="{{_id}}_3" class="btn btn-primary question-option">{{option3}}</button><br>
+            <button type="button" id="{{_id}}_4" class="btn btn-primary question-option">{{option4}}</button><br>
+        </div>
+    </li>
+    <hr>
 </template>
 
 
@@ -83,6 +110,9 @@
 </template>
 
 <template name="add_question_form">
+    <h4>
+        שאלה חדשה
+    </h4>
     <textarea id="question_text" placeholder="שאלה"></textarea>
     <br/>
     תשובות אפשריות:
@@ -112,7 +142,7 @@
         </a>
         |
         פרוייקט של
-        דניאל ודניאל
+&copy;         דניאל ודניאל
 
 
 
