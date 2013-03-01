@@ -1,0 +1,121 @@
+<head>
+    <title>history game</title>
+</head>
+
+<body>
+    <div style="float: left;margin-right: 20px;">
+        {{loginButtons align="left"}}
+    </div>
+
+    <div id="history_games">
+        <h1 dir="rtl" style="color: red">מחשקי היסטוריה</h1>
+        <h3 dir="rtl">רשימת חדרים</h3>
+        {{> games_list}}
+        {{> game_quiz}}
+        {{> edit_questions}}
+    </div>
+
+    {{>footer}}
+</body>
+
+
+<template name="games_list">
+    <div class="btn-group pull-right">
+        {{#each games}}
+        <div id="{{_id}}" class="game_button btn btn-inverse">
+            {{name}}
+        </div>
+        {{/each}}
+        <div class="btn" id="add_game">&plus;</div>
+
+    </div>
+</template>
+
+<template name="game_quiz">
+    {{#unless editing_questions }}
+    <ul class="questions_list">
+    </ul>
+    {{/unless}}
+</template>
+
+
+<template name="edit_questions">
+    {{#if editing_questions }}
+    <div dir="rtl">
+    <br>
+    <h2>
+        עריכת שאלות
+    </h2>
+        <p>
+            <a href="javascript:finish_editing_mode()" id="edit_questions_button">
+סיימתי
+            </a>
+        </p>
+    <ol>
+        {{#each questions}}
+        <br>
+            <li class="question">
+                {{question_text}}<br>
+                אפשרויות:
+                <br>
+                <ol>
+                    <li>{{option1}}</li>
+                    <li>{{option2}}</li>
+                    <li>{{option3}}</li>
+                    <li>{{option4}}</li>
+                </ol>
+                תשובה נכונה:
+                {{answer}}
+                <br>
+                <!--<div class="btn edit-question-button" question_id="{{_id}}">-->
+                    <!--ערוך-->
+                <!--</div>-->
+            </li>
+        {{/each}}
+<br><br>
+        <li>
+            {{>add_question_form}}
+        </li>
+
+    </ol>
+    </div>
+    {{/if}}
+</template>
+
+<template name="add_question_form">
+    <textarea id="question_text" placeholder="שאלה"></textarea>
+    <br/>
+    תשובות אפשריות:
+    <br/>
+    <input type="text" id="option1" placeholder="א"><br/>
+    <input type="text" id="option2" placeholder="ב"><br/>
+    <input type="text" id="option3" placeholder="ג"><br/>
+    <input type="text" id="option4" placeholder="ד"><br/>
+    <hr/>
+    התשובה הנכונה:
+    <select id="answer">
+        <option value="1">א</option>
+        <option value="2">ב</option>
+        <option value="3">ג</option>
+        <option value="4">ד</option>
+    </select>
+    <br/>
+    <div id="add_question" class="btn">הוסף</div>
+</template>
+
+<template name="footer">
+    <br><br><br><br><br><br><br>
+    <hr>
+    <div class="footer">
+        <a href="javascript:switch_to_editing_mode()" id="edit_questions_button">
+            עריכת שאלות
+        </a>
+        |
+        פרוייקט של
+        דניאל ודניאל
+
+
+
+
+    </div>
+</template>
